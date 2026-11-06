@@ -93,9 +93,8 @@ whenever a `v*` tag is pushed. The tag must match `version` in `Cargo.toml`.
 just release      # tags v<version> and pushes the tag
 ```
 
-`just deb` builds the same package locally into `target/debian/`. Running the workflow by hand
-(Actions → *Release .deb* → *Run workflow*) builds the package as a downloadable artifact without
-publishing a release.
+`just deb` builds the same package locally into `target/debian/`. Commits without a tag do not
+trigger any CI run.
 
 ## Icons
 
