@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=OpenVPN3 Indicator (Rust)
+Comment=Tray indicator for OpenVPN 3 Linux
+Icon=openvpn3-indicator-rs
+Exec=openvpn3-indicator-rs %F
+Terminal=false
+Categories=Utility;Network;
+MimeType=application/x-openvpn-profile;
+StartupNotify=false
+X-GNOME-UsesNotifications=true

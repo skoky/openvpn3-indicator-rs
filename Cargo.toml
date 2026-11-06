@@ -1,0 +1,17 @@
+[package]
+name = "openvpn3-indicator-rs"
+version = "0.1.0"
+edition = "2024"
+description = "Tray indicator for OpenVPN 3 Linux"
+license = "AGPL-3.0-or-later"
+repository = "https://github.com/skoky/openvpn3-indicator-rs"
+rust-version = "1.88"
+
+[dependencies]
+anyhow = "1.0.104"
+dbus-secret-service = "4"
+env_logger = "0.11.11"
+glib-unix = "0.22"
+gtk4 = { version = "0.11", features = ["v4_10"] }
+ksni = { version = "0.3", default-features = false, features = ["blocking", "async-io"] }
+log = "0.4.35"
