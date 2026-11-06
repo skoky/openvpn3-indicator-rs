@@ -36,6 +36,17 @@ The services used are `net.openvpn.v3.configuration` and `net.openvpn.v3.session
 Session status arrives as `StatusChange` signals once `LogForward(true)` has been called on the session.
 On top of that, the state is refreshed every 5 s.
 
+## Installing
+
+Download the `.deb` from the [latest release](https://github.com/skoky/openvpn3-indicator-rs/releases/latest)
+(Ubuntu 24.04 or newer, amd64) and install it:
+
+```bash
+sudo apt install ./openvpn3-indicator-rs_*_amd64.deb
+```
+
+You also need [OpenVPN 3 Linux](https://community.openvpn.net/openvpn/wiki/OpenVPN3Linux).
+
 ## Building
 
 Common tasks are recipes in the [`justfile`](justfile); run `just` to list them.
@@ -71,6 +82,20 @@ sudo just install          # only copies files; PREFIX=/usr/local by default, DE
 ```
 
 On GNOME you need the *AppIndicator and KStatusNotifierItem Support* extension (Ubuntu ships it enabled).
+
+## Releasing
+
+`.github/workflows/release.yml` builds the `.deb` on Ubuntu 24.04 and publishes it as a GitHub release
+whenever a `v*` tag is pushed. The tag must match `version` in `Cargo.toml`.
+
+```bash
+# bump version in Cargo.toml, commit, then:
+just release      # tags v<version> and pushes the tag
+```
+
+`just deb` builds the same package locally into `target/debian/`. Running the workflow by hand
+(Actions → *Release .deb* → *Run workflow*) builds the package as a downloadable artifact without
+publishing a release.
 
 ## Icons
 

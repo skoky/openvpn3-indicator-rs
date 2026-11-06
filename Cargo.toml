@@ -15,3 +15,29 @@ glib-unix = "0.22"
 gtk4 = { version = "0.11", features = ["v4_10"] }
 ksni = { version = "0.3", default-features = false, features = ["blocking", "async-io"] }
 log = "0.4.35"
+
+[profile.release]
+strip = true
+lto = "thin"
+
+# Debian package built with `cargo deb` (see `just deb` and .github/workflows/release.yml).
+[package.metadata.deb]
+maintainer = "skoky <skokys@gmail.com>"
+copyright = "2026, skoky"
+license-file = ["LICENSE", "0"]
+section = "net"
+priority = "optional"
+extended-description = """\
+A system tray indicator (StatusNotifierItem / AppIndicator) for OpenVPN 3 Linux. \
+It lists imported profiles and running sessions, connects, pauses, resumes and \
+disconnects them, asks for credentials (optionally stored in the Secret Service), \
+imports .ovpn profiles and shows desktop notifications on status changes."""
+depends = "$auto"
+recommends = "openvpn3, gnome-shell-extension-appindicator | plasma-workspace"
+assets = [
+    ["target/release/openvpn3-indicator-rs", "usr/bin/", "755"],
+    ["data/applications/net.openvpn.openvpn3_indicator_rs.desktop", "usr/share/applications/", "644"],
+    ["data/icons/hicolor/scalable/apps/*.svg", "usr/share/icons/hicolor/scalable/apps/", "644"],
+    ["data/icons/hicolor/scalable/status/*.svg", "usr/share/icons/hicolor/scalable/status/", "644"],
+    ["README.md", "usr/share/doc/openvpn3-indicator-rs/", "644"],
+]

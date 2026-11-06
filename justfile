@@ -45,6 +45,23 @@ check:
     cargo clippy --all-targets -- -D warnings
     cargo test
 
+# Build a Debian package into target/debian/ (needs `cargo install cargo-deb`)
+deb: check-deps
+    cargo deb --locked
+
+# Tag the current Cargo.toml version and push the tag; CI builds and publishes the .deb
+release:
+    #!/usr/bin/env sh
+    set -e
+    version=$(grep -m1 '^version' Cargo.toml | cut -d'"' -f2)
+    if [ -n "$(git status --porcelain)" ]; then
+        echo "error: working tree is not clean; commit first" >&2
+        exit 1
+    fi
+    git tag -a "v${version}" -m "Release v${version}"
+    git push origin "v${version}"
+    echo "Pushed v${version}; GitHub Actions will publish the .deb release."
+
 # Regenerate the SVG icons from tools/gen-icons.py
 icons:
     python3 tools/gen-icons.py
